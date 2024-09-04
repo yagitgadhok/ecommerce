@@ -1,24 +1,38 @@
 import React, { createContext, useState } from "react";
-import all_product from "../Component/Assets/all_product";
+import all_product from "../Assets/all_product";
+import { redirect, useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext(null);
-
-const getDeafaultCart = () => {
-  let cart = {};
-  for (let index = 0; index < all_product.length + 1; index++) {
-    cart[index] = 0;
-  }
-  return cart;
-};
+// const getDeafaultCart = () => {
+//   let cart = {};
+//   for (let index = 0; index < all_product.length + 1; index++) {
+//     cart[index] = 0;
+//   }
+//   return cart;
+// };
 
 const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getDeafaultCart());
+  const [cartItems, setCartItems] = useState({});
 
-  const addToCart = (itemId) => {
-    console.log(itemId);
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+  //   const addToCart = (itemId) => {
+  //     console.log(itemId);
+
+  //     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+
+  //     console.log("cart items", cartItems);
+  //   };
+
+  const addToCart = (productId) => {
+    setCartItems((prevItem) => {
+      const newItem = { ...prevItem };
+      if (newItem[productId]) {
+        newItem[productId] += 1;
+      } else {
+        newItem[productId] = 1;
+      }
+      return newItem;
+    });
   };
-  console.log(cartItems);
 
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));

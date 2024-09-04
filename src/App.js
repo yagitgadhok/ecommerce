@@ -5,11 +5,12 @@ import { Shop } from "./Pages/Shop.jsx";
 import { ShopCategory } from "./Pages/ShopCategory.jsx";
 import { Product } from "./Pages/Product.jsx";
 import { Cart } from "./Pages/Cart.jsx";
-import { LoginSignup } from "./Pages/LoginSignup.jsx";
 import { Footer } from "./Component/Footer/Footer.jsx";
-import men_banner from "./Component/Assets/banner_mens.png";
-import women_banner from "./Component/Assets/banner_women.png";
-import kids_banner from "./Component/Assets/banner_kids.png";
+import men_banner from "./Assets/banner_mens.png";
+import women_banner from "./Assets/banner_women.png";
+import kids_banner from "./Assets/banner_kids.png";
+import { LoginSignup } from "./Pages/LoginSignup/LoginSignup.jsx";
+import { Login } from "./Pages/LoginSignup/Login.jsx";
 
 function App() {
   return (
@@ -34,7 +35,8 @@ function App() {
             <Route path=":productId" element={<Product />}></Route>
           </Route>
           <Route path="/cart" element={<Cart />}></Route>
-          <Route path="/login" element={<LoginSignup />}></Route>
+          <Route path="/signup" element={<LoginSignup />}></Route>
+          <Route path="/login" element={<Login />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

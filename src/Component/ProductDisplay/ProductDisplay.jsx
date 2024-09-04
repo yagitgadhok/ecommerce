@@ -1,12 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ProductDisplay.css";
-import star_icon from "../Assets/star_icon.png";
-import star_dull_icon from "../Assets/star_dull_icon.png";
+import star_icon from "../../Assets/star_icon.png";
+import star_dull_icon from "../../Assets/star_dull_icon.png";
 import { ShopContext } from "../../Context/ShopContext";
+import api from "../../Services/User.service";
 
 export const ProductDisplay = (props) => {
   const { product } = props;
   const { addToCart } = useContext(ShopContext);
+  const [data, setData] = useState();
+
+  // useEffect(async () => {
+  //   try {
+  //     const response = await api.get("users");
+  //     setData(response.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("users");
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(window.location.href);
+
   return (
     <div className="productdisplay">
       <div className="productdisplay-left">
