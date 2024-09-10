@@ -69,6 +69,10 @@
   cursor: pointer;
 }
 
+.productdisplay-right-sizes div:hover {
+  background-color: rgb(152, 84, 152);
+}
+
 .productdisplay-right button {
   padding: 20px 40px;
   width: 200px;

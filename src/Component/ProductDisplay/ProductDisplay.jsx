@@ -10,15 +10,6 @@ export const ProductDisplay = (props) => {
   const { addToCart } = useContext(ShopContext);
   const [data, setData] = useState();
 
-  // useEffect(async () => {
-  //   try {
-  //     const response = await api.get("users");
-  //     setData(response.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // });
-
   useEffect(() => {
     const fetchData = async () => {
       try {

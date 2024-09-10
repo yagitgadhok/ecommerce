@@ -1,0 +1,27 @@
+.checkout {
+  width: 580px;
+  height: 450px;
+  background: rgba(184, 120, 236, 0.418);
+  margin: auto;
+  padding: 15px 60px;
+}
+
+.checkout h1 {
+  align-items: center;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  height: 125px;
+  align-items: center;
+  gap: 25px;
+  margin: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

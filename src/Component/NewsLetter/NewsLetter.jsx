@@ -1,7 +1,7 @@
 import React from "react";
 import "./NewsLetter.css";
 
-export const NewsLetter = () => {
+const NewsLetter = () => {
   return (
     <div className="newsletter">
       <h1>Get Exclusive offers on your Email</h1>
@@ -13,3 +13,5 @@ export const NewsLetter = () => {
     </div>
   );
 };
+
+export default NewsLetter;

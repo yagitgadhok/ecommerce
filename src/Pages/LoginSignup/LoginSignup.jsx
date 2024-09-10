@@ -1,27 +1,73 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/LoginSigup.css";
 import formValidation from "./Validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import instance from "../../Services/User.service";
 import api from "../../Services/User.service";
+import axios from "axios";
 
 export const LoginSignup = () => {
+  const navigate = useNavigate();
   // const api = instance();
   const [myData, setMyData] = useState();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("auth/login");
-        setMyData(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  });
+  const [checked, setCheck] = useState(false);
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [role, setRole] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [pinCode, setPinCode] = useState("");
+  // const [city, setCity] = useState("");
+  // const [shopName, setShopName] = useState("");
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    try {
+      // useEffect(() => {
+      //   const fetchData = async () => {
+      //     try {
+      //       const response = await api.get("auth/register");
+      //       setMyData(response.data);
+      //     } catch (err) {
+      //       console.error(err);
+      //     }
+      //   };
+      // });
+
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/register",
+        {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          role: values.role,
+          address: values.address,
+          pinCode: values.pinCode,
+          city: values.city,
+          shopName: values.shopName,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      console.log(response.data, "Signup successful");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
+    role: "",
+    address: "",
+    pinCode: "",
+    city: "",
+    shopName: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -37,9 +83,9 @@ export const LoginSignup = () => {
     <div className="loginsignup">
       <div className="loginsignup-container">
         <h1>Sign Up</h1>
-        <form action="" onSubmit={handleValidation}>
+        <form action="" onSubmit={handleSignup}>
           <div className="loginsignup-fields">
-            <div className="form-fields">
+            <div>
               <input
                 type="text"
                 placeholder="Your Name"
@@ -48,7 +94,7 @@ export const LoginSignup = () => {
               ></input>
               {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
             </div>
-            <div className="form-fields">
+            <div>
               <input
                 type="email"
                 placeholder="Your Email"
@@ -57,7 +103,7 @@ export const LoginSignup = () => {
               ></input>
               {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
             </div>
-            <div className="form-fields">
+            <div>
               <input
                 type="password"
                 placeholder="Your Password"
@@ -68,19 +114,72 @@ export const LoginSignup = () => {
                 <p style={{ color: "red" }}>{errors.password}</p>
               )}
             </div>
+            <div>
+              {/* <label htmlFor="dropdown">Role</label> */}
+              <select id="dropdown" name="role" onChange={handleInput}>
+                <option value="">Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Your Address"
+                name="address"
+                onChange={handleInput}
+              ></input>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Your Pincode"
+                name="pincode"
+                onChange={handleInput}
+              ></input>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Your City"
+                name="city"
+                onChange={handleInput}
+              ></input>
+            </div>
+            {values.role === "admin" ? (
+              <div>
+                <input
+                  type="text"
+                  placeholder="Your Shop name"
+                  name="shopName"
+                  onChange={handleInput}
+                ></input>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          <button type="submit">Continue</button>
+          <p className="loginsignup-login">
+            Already Have an account?{" "}
+            <Link to="/login">
+              <span>Login here</span>
+            </Link>
+          </p>
+          <div className="loginsignup-agree">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              onChange={() => {
+                setCheck(!checked);
+              }}
+            ></input>
+            <p>Continue, and agree to use it within the terms and policy</p>
+          </div>
+          <button type="submit" disabled={!checked}>
+            Continue
+          </button>
         </form>
-        <p className="loginsignup-login">
-          Already Have an account?{" "}
-          <Link to="/login">
-            <span>Login here</span>
-          </Link>
-        </p>
-        <div className="loginsignup-agree">
-          <input type="checkbox" name="" id=""></input>
-          <p>Continue, and agree to use it within the terms and policy</p>
-        </div>
       </div>
     </div>
   );

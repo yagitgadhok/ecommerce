@@ -3,12 +3,19 @@ import "./Navbar.css";
 
 import logo from "../../Assets/logo.png";
 import cart_icon from "../../Assets/cart_icon.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 
 export const Navbar = () => {
   const [menu, setMenu] = useState("shop");
   const { getTotalCartItem } = useContext(ShopContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
@@ -58,15 +65,29 @@ export const Navbar = () => {
           {menu === "kids" ? <hr /> : <></>}
         </li>
       </ul>
-      <div className="nav-login">
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
-        <Link to="/cart">
-          <img src={cart_icon} alt=""></img>
-        </Link>
-        <div className="nav-cart-count">{getTotalCartItem()}</div>
-      </div>
+      {localStorage.getItem("user") ? (
+        <div className="nav-login">
+          <h3>Hi,</h3>
+          {localStorage.getItem("user")}
+          <Link to="/">
+            <button onClick={logout}>Logout</button>
+          </Link>
+          <Link to="/cart">
+            <img src={cart_icon} alt=""></img>
+          </Link>
+          <div className="nav-cart-count">{getTotalCartItem()}</div>
+        </div>
+      ) : (
+        <div className="nav-login">
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+          <Link to="/cart">
+            <img src={cart_icon} alt=""></img>
+          </Link>
+          <div className="nav-cart-count">{getTotalCartItem()}</div>
+        </div>
+      )}
     </div>
   );
 };
