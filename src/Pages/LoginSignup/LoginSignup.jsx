@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../CSS/LoginSigup.css";
 import formValidation from "./Validation";
 import { Link, useNavigate } from "react-router-dom";
-import instance from "../../Services/User.service";
-import api from "../../Services/User.service";
 import axios from "axios";
 
 export const LoginSignup = () => {
   const navigate = useNavigate();
   // const api = instance();
-  const [myData, setMyData] = useState();
   const [checked, setCheck] = useState(false);
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
@@ -33,25 +30,24 @@ export const LoginSignup = () => {
       //     }
       //   };
       // });
-
+      const req = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        role: values.role,
+        shopName: values.shopName,
+      };
       const response = await axios.post(
         "http://localhost:3000/api/auth/register",
-        {
-          name: values.name,
-          email: values.email,
-          password: values.password,
-          role: values.role,
-          address: values.address,
-          pinCode: values.pinCode,
-          city: values.city,
-          shopName: values.shopName,
-        },
+        req,
         {
           withCredentials: true,
         }
       );
+      console.log(req, "request");
       const token = response.data.token;
       localStorage.setItem("token", token);
+      localStorage.setItem("user_data", req);
       console.log(response.data, "Signup successful");
       navigate("/");
     } catch (err) {
@@ -64,9 +60,6 @@ export const LoginSignup = () => {
     email: "",
     password: "",
     role: "",
-    address: "",
-    pinCode: "",
-    city: "",
     shopName: "",
   });
 
@@ -75,10 +68,13 @@ export const LoginSignup = () => {
     const newObj = { ...values, [event.target.name]: event.target.value };
     setValues(newObj);
   };
+
   const handleValidation = (event) => {
     event.preventDefault();
     setErrors(formValidation(values));
   };
+  localStorage.setItem("userData", JSON.stringify(values));
+
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">
@@ -121,30 +117,6 @@ export const LoginSignup = () => {
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
               </select>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Your Address"
-                name="address"
-                onChange={handleInput}
-              ></input>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Your Pincode"
-                name="pincode"
-                onChange={handleInput}
-              ></input>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Your City"
-                name="city"
-                onChange={handleInput}
-              ></input>
             </div>
             {values.role === "admin" ? (
               <div>

@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import all_product from "../Assets/all_product";
 import { redirect, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const ShopContext = createContext(null);
 // const getDeafaultCart = () => {
@@ -13,6 +14,8 @@ export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
+  const headers = { token: localStorage.getItem("token") };
+  // const navigate = useNavigate();
 
   //   const addToCart = (itemId) => {
   //     console.log(itemId);
@@ -23,8 +26,26 @@ const ShopContextProvider = (props) => {
   //   };
 
   const addToCart = (productId) => {
+    const pi = String(productId);
+
+    console.log("local", localStorage.getItem("token"), "header", headers);
+    if (localStorage.getItem("token")) {
+      redirect("/login");
+    }
     setCartItems((prevItem) => {
       const newItem = { ...prevItem };
+      try {
+        const response = axios.post(
+          `http://localhost:3000/api/cart`,
+          {
+            medicineId: { pi },
+            quantity: 1,
+          },
+          {
+            headers,
+          }
+        );
+      } catch (err) {}
       if (newItem[productId]) {
         newItem[productId] += 1;
       } else {

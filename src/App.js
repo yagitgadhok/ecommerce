@@ -12,6 +12,10 @@ import kids_banner from "./Assets/banner_kids.png";
 import { LoginSignup } from "./Pages/LoginSignup/LoginSignup.jsx";
 import { Login } from "./Pages/LoginSignup/Login.jsx";
 import { Checkout } from "./Pages/Checkout.jsx";
+import { User } from "./Pages/User.jsx";
+import { ForgetPassword } from "./Pages/LoginSignup/ForgetPassword.jsx";
+import { ResetPassword } from "./Pages/LoginSignup/ResetPassword.jsx";
+import { Address } from "./Pages/Address.jsx";
 
 function App() {
   return (
@@ -39,6 +43,13 @@ function App() {
           <Route path="/signup" element={<LoginSignup />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/checkout" element={<Checkout />}></Route>
+          <Route path="/user-profile" element={<User />}></Route>
+          <Route path="/forget-password" element={<ForgetPassword />}></Route>
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPassword />}
+          ></Route>
+          <Route path="/address" element={<Address />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

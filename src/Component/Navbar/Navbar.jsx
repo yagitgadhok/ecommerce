@@ -3,6 +3,7 @@ import "./Navbar.css";
 
 import logo from "../../Assets/logo.png";
 import cart_icon from "../../Assets/cart_icon.png";
+import user_icon from "../../Assets/user.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 
@@ -17,6 +18,8 @@ export const Navbar = () => {
     navigate("/");
   };
 
+  const user_data = localStorage.getItem("user");
+  // console.log(JSON.parse(user_data).name);
   return (
     <div className="navbar">
       <div className="nav-logo">
@@ -32,7 +35,7 @@ export const Navbar = () => {
           <Link style={{ textDecoration: "none" }} to="/">
             Shop
           </Link>
-          {menu === "shop" ? <hr /> : <></>}
+          {/* {menu === "shop" ? <hr /> : <></>} */}
         </li>
         <li
           onClick={() => {
@@ -42,7 +45,7 @@ export const Navbar = () => {
           <Link style={{ textDecoration: "none" }} to="/mens">
             Men
           </Link>
-          {menu === "men" ? <hr /> : <></>}
+          {/* {menu === "men" ? <hr /> : <></>} */}
         </li>
         <li
           onClick={() => {
@@ -52,7 +55,7 @@ export const Navbar = () => {
           <Link style={{ textDecoration: "none" }} to="/womens">
             Women
           </Link>
-          {menu === "women" ? <hr /> : <></>}
+          {/* {menu === "women" ? <hr /> : <></>} */}
         </li>
         <li
           onClick={() => {
@@ -62,7 +65,7 @@ export const Navbar = () => {
           <Link style={{ textDecoration: "none" }} to="/kids">
             Kids
           </Link>
-          {menu === "kids" ? <hr /> : <></>}
+          {/* {menu === "kids" ? <hr /> : <></>} */}
         </li>
       </ul>
       {localStorage.getItem("user") ? (
@@ -88,6 +91,17 @@ export const Navbar = () => {
           <div className="nav-cart-count">{getTotalCartItem()}</div>
         </div>
       )}
+      <div className="nav-login">
+        {localStorage.getItem("user") ? (
+          <Link to="/user-profile">
+            <img className="user-icon" src={user_icon} alt=""></img>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <img className="user-icon" src={user_icon} alt=""></img>
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

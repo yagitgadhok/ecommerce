@@ -1,5 +1,5 @@
 .checkout {
-  width: 580px;
+  min-width: 580px;
   height: 450px;
   background: rgba(184, 120, 236, 0.418);
   margin: auto;
@@ -8,6 +8,12 @@
 
 .checkout h1 {
   align-items: center;
+}
+
+.address-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .form-fields {
@@ -24,4 +30,31 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.field {
+  height: 100px;
+  width: 100%;
+  padding-left: 20px;
+  border: 1px solid black;
+  outline: none;
+  color: grey;
+  font-size: 20px;
+}
+
+.checkout-button {
+  width: 250px;
+  height: 80px;
+  color: white;
+  background: rgb(86, 13, 86);
+  margin-top: 30px;
+  border: none;
+  border-radius: 15px;
+  font-size: 40px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.address-icon {
+  height: 32px;
+  width: 32px;
 }

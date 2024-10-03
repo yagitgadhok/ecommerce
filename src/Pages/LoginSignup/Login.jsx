@@ -24,7 +24,7 @@ export const Login = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://medical-api-git-main-ayush-saxenas-projects-03883bbf.vercel.app/api/auth/login",
+        "http://localhost:3000/api/auth/login",
         {
           email: values.email,
           password: values.password,
@@ -37,6 +37,7 @@ export const Login = () => {
       const token = response.data.token;
       localStorage.setItem("token", token);
       localStorage.setItem("user", response.data.user.name);
+      localStorage.setItem("userId", response.data.user.id);
       console.log("Login successful:", response.data);
       navigate("/");
       // Optionally, redirect to another page
@@ -80,6 +81,11 @@ export const Login = () => {
               )}
             </div>
           </div>
+
+          <div className="forget-password">
+            <Link to="/forget-password">Forget Password?</Link>
+          </div>
+
           <p className="loginsignup-login">
             Don't have an account{" "}
             <Link to="/signup">

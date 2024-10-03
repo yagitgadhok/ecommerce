@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./CartItems.css";
 import { ShopContext } from "../../Context/ShopContext";
 import remove_icon from "../../Assets/cart_cross_icon.png";
@@ -7,6 +7,74 @@ import { useNavigate } from "react-router-dom";
 export const CartItems = () => {
   const { getTotalCartAmount, all_product, cartItems, removeFromCart } =
     useContext(ShopContext);
+  const userId = localStorage.getItem("userId");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+
+  const coupons = [
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+    { name: "SAVE10", discount: "10%" },
+    { name: "SAVE20", discount: "20%" },
+  ];
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCouponClick = (couponName) => {
+    setPromoCode(couponName);
+    closeModal();
+  };
 
   const navigate = useNavigate();
   return (
@@ -68,7 +136,11 @@ export const CartItems = () => {
           </div>
           <button
             onClick={() => {
-              navigate("/checkout");
+              if (userId) {
+                navigate("/checkout");
+              } else {
+                alert("User Not Logged in");
+              }
             }}
           >
             Proceed To Checkout
@@ -79,7 +151,50 @@ export const CartItems = () => {
           <div className="cartitems-promobox">
             <input type="text" placeholder="Enter Promo Code"></input>
             <button>Submit</button>
+            <a
+              onClick={openModal}
+              className="text-blue-500 cursor-pointer add-coupon-link"
+            >
+              +Add coupon
+            </a>
           </div>
+          {isModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-6 rounded-lg shadow-lg w-96 max-h-96 overflow-y-auto">
+                <h2 className="text-xl font-bold mb-4">
+                  <ins>Select a Coupon</ins>
+                </h2>
+                <div className="table-container">
+                  <table className="w-full border-collapse">
+                    <thead className="sticky top-0 bg-white">
+                      <tr>
+                        <th className="border p-2">Coupon Name</th>
+                        <th className="border p-2">Discount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {coupons.map((coupon, index) => (
+                        <tr
+                          key={index}
+                          onClick={() => handleCouponClick(coupon.name)}
+                          className="cursor-pointer hover:bg-gray-200"
+                        >
+                          <td className="border p-2">{coupon.name}</td>
+                          <td className="border p-2">{coupon.discount}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="mt-4 bg-purple-500 text-white p-2 rounded"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

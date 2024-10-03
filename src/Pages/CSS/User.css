@@ -1,0 +1,91 @@
+.user {
+  background: rgba(206, 156, 222, 0.524);
+  width: 100%;
+  min-height: 500px;
+  padding-top: 100px;
+}
+
+.user-container {
+  width: 580px;
+  min-height: 250px;
+  background: rgb(255, 255, 255);
+  margin: auto;
+  padding: 40px 60px;
+}
+
+.form-container {
+  display: flex;
+  width: 580px;
+  min-height: 250px;
+  background: rgb(255, 255, 255);
+  margin: auto;
+  padding: 40px 60px;
+}
+.user-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+  margin-top: 30px;
+  padding: 10px;
+}
+.user-fields input {
+  height: 50px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid black;
+  outline: none;
+  color: grey;
+  font-size: 18px;
+}
+
+.user-container ul {
+  list-style-type: none;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.user-container {
+  display: flex;
+}
+
+.edit-icon {
+  height: 15px;
+  width: 15px;
+  padding-left: 4px;
+}
+
+.edit-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-button {
+  width: 600px;
+  height: 72px;
+  color: white;
+  background: rgb(86, 13, 86);
+  margin-top: 30px;
+  border: none;
+  border-radius: 15px;
+  font-size: 25px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.update-button {
+  width: 600px;
+  height: 72px;
+  color: white;
+  background: rgb(1, 132, 57);
+  margin-top: 30px;
+  border: none;
+  border-radius: 15px;
+  font-size: 25px;
+  font-weight: 500;
+  cursor: pointer;
+}

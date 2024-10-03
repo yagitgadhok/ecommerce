@@ -16,7 +16,6 @@ export const Shop = () => {
   return (
     <div>
       <Hero />
-
       <Suspense fallback={<div> Loading... </div>}>
         <Popular />
         <Offers />
