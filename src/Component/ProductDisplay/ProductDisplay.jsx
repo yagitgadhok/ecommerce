@@ -24,8 +24,6 @@ export const ProductDisplay = (props) => {
     fetchData();
   }, []);
 
-  console.log(window.location.href);
-
   return (
     <div className="productdisplay">
       <div className="productdisplay-left">

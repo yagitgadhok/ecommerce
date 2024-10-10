@@ -14,7 +14,6 @@ export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const headers = { token: localStorage.getItem("token") };
   // const navigate = useNavigate();
 
   //   const addToCart = (itemId) => {
@@ -26,7 +25,8 @@ const ShopContextProvider = (props) => {
   //   };
 
   const addToCart = (productId) => {
-    const pi = String(productId);
+    // const pi = String(productId);
+    const headers = { token: localStorage.getItem("token") };
 
     console.log("local", localStorage.getItem("token"), "header", headers);
     if (localStorage.getItem("token")) {
@@ -34,18 +34,18 @@ const ShopContextProvider = (props) => {
     }
     setCartItems((prevItem) => {
       const newItem = { ...prevItem };
-      try {
-        const response = axios.post(
-          `http://localhost:3000/api/cart`,
-          {
-            medicineId: { pi },
-            quantity: 1,
-          },
-          {
-            headers,
-          }
-        );
-      } catch (err) {}
+      // try {
+      //   const response = axios.post(
+      //     `http://localhost:3000/api/cart`,
+      //     {
+      //       medicineId: String(productId),
+      //       quantity: 1,
+      //     },
+      //     {
+      //       headers,
+      //     }
+      //   );
+      // } catch (err) {}
       if (newItem[productId]) {
         newItem[productId] += 1;
       } else {

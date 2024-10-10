@@ -38,6 +38,7 @@ export const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", response.data.user.name);
       localStorage.setItem("userId", response.data.user.id);
+      localStorage.setItem("role", response.data.user.role);
       console.log("Login successful:", response.data);
       navigate("/");
       // Optionally, redirect to another page
